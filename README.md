@@ -8,7 +8,7 @@ Sarthak Arora
 Audio Code:
 Audio Censoring and Blacklisting
 Shreya Gupta
-Trishub Shukla
+Trishubh Shukla
 
 Video and Image Detection:
 Dataset and AI Model Training
