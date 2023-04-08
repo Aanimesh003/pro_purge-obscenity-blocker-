@@ -1,0 +1,2 @@
+nudenet
+PySimpleGUI
