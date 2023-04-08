@@ -2,9 +2,8 @@ pro_purge
 
 Obscenity Detector Script Added
 requires classifier_model.onnx file to be Placed in C:\Users\"YourUsername"\.NudeNet
-You can Download the file from https://1drv.ms/u/s!AkkJroI0DrNmhvphGOYYMyfA5wtfgQ?e=exIN3z
-
-
+You can Download the file from https://1drv.ms/u/s!AkkJroI0DrNmhvphGOYYMyfA5wtfgQ?e=exIN3z and Place it in C:\Users\"YourUsername"\.NudeNet
+Additional Details for Nudenet can Be found Here: https://github.com/notAI-tech/NudeNet
 
 Browser Extension:
 Website data scraping and Conditioning:
