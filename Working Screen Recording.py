@@ -3,7 +3,7 @@ import numpy as np
 from nudenet import NudeClassifier
 import pyautogui
 import tkinter as tk
-OverLy="No"
+
 
 def close_overlay(overlay, freeze_screen):
     overlay.grab_release()
@@ -26,7 +26,7 @@ def show_overlay():
     message_label.place(relx=0.5, rely=0.5, anchor=tk.CENTER)
 
     # After 20 seconds, close the overlay and the application
-    overlay.after(20000, close_overlay, overlay, freeze_screen)
+    overlay.after(2000, close_overlay, overlay, freeze_screen)
 
 classifier = NudeClassifier()
 
