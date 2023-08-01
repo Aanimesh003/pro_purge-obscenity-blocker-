@@ -31,6 +31,7 @@ def show_overlay():
 classifier = NudeClassifier()
 
 while True:
+    #Optimization Required Need Faster Screenshot Implementation
     screenshot = pyautogui.screenshot('pic.png')
     
     a = classifier.classify("pic.png")
