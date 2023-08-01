@@ -38,6 +38,10 @@ while True:
     unsafe_per=round(100*a["pic.png"]['unsafe'],2)
     safe_per=round(100*a["pic.png"]['safe'],2)          
     if unsafe_per > 60 :
+        # TO ADD: SEND OBSECNITY ALERT NOTIFICATION
+        # Proper Integration into a Fuction
+        # Launching a Script for Overlay that is a seperate file
+        # Integraing Keyboard inputs to Close Obscene window
         root = tk.Tk()
         root.attributes('-fullscreen', True)
         root.withdraw()  # Hide the root window

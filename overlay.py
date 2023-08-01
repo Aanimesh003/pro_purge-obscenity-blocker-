@@ -39,4 +39,3 @@ if __name__ == "__main__":
     root.after(100, show_overlay)
 
     root.mainloop()
-#Overlay tes
