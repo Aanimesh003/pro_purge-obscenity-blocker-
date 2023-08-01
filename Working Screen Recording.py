@@ -3,8 +3,8 @@ import numpy as np
 from nudenet import NudeClassifier
 import pyautogui
 import tkinter as tk
+OverLy="No"
 
-root = tk.Tk()
 def close_overlay(overlay, freeze_screen):
     overlay.grab_release()
     overlay.destroy()
@@ -26,22 +26,7 @@ def show_overlay():
     message_label.place(relx=0.5, rely=0.5, anchor=tk.CENTER)
 
     # After 20 seconds, close the overlay and the application
-    overlay.after(2, close_overlay, overlay, freeze_screen)
-
-def overlay():
-    root.attributes('-fullscreen', True)
-    root.withdraw()  # Hide the root window
-
-    # Create a transparent window to freeze the screen
-    freeze_screen = tk.Toplevel(root)
-    freeze_screen.attributes('-fullscreen', True)
-    freeze_screen.attributes('-alpha', 0)  # Make the window transparent
-    freeze_screen.attributes('-topmost', True)  # Keep the transparent window on top of other windows
-    freeze_screen.grab_set_global()  # Grab all events to the transparent window
-
-    # Show the overlay after a short delay
-    root.after(100, show_overlay)
-    root.mainloop()
+    overlay.after(20000, close_overlay, overlay, freeze_screen)
 
 classifier = NudeClassifier()
 
@@ -53,7 +38,20 @@ while True:
     unsafe_per=round(100*a["pic.png"]['unsafe'],2)
     safe_per=round(100*a["pic.png"]['safe'],2)          
     if unsafe_per > 60 :
-        overlay()
+        root = tk.Tk()
+        root.attributes('-fullscreen', True)
+        root.withdraw()  # Hide the root window
+
+        # Create a transparent window to freeze the screen
+        freeze_screen = tk.Toplevel(root)
+        freeze_screen.attributes('-fullscreen', True)
+        freeze_screen.attributes('-alpha', 0)  # Make the window transparent
+        freeze_screen.attributes('-topmost', True)  # Keep the transparent window on top of other windows
+        freeze_screen.grab_set_global()  # Grab all events to the transparent window
+
+        # Show the overlay after a short delay
+        root.after(100, show_overlay)
+        root.mainloop()
             
     print("Unsafe",unsafe_per,"%")
     print("Safe",safe_per,"%")
