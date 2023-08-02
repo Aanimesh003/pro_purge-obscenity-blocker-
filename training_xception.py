@@ -27,7 +27,7 @@ with strategy.scope():
     optimizer = keras.optimizers.Adam()
     model.compile(optimizer=optimizer, loss=loss_fn, metrics=['accuracy'])
 
-checkpoint_callback = ModelCheckpoint('best_model.hdf5', monitor='val_accuracy', save_best_only=True, mode='max', verbose=1)
+checkpoint_callback = ModelCheckpoint('best_model.keras', monitor='val_accuracy', save_best_only=True, mode='max', verbose=1)
 
 #Train the model on your dataset with backup checkpoints.
 checkpoint_dir = '/media/ryana/Trainingstore/'
@@ -35,7 +35,7 @@ os.makedirs(checkpoint_dir, exist_ok=True)
 
 def save_model_and_weights(model, epoch):
       # Save the entire model (architecture + weights).
-   model_path = os.path.join(checkpoint_dir, f'model_checkpoint_epoch_{epoch}.hdf5')
+   model_path = os.path.join(checkpoint_dir, f'model_checkpoint_epoch_{epoch}.keras')
    model.save(model_path)
    print(f"Model saved at epoch {epoch}.")
 
@@ -81,4 +81,4 @@ except Exception as e:
 #model = tf.keras.models.load_model(latest_model_path)
 
 # Step 9: Save the trained model for later use.
-model.save('binary_classification_xception.hdf5')
+model.save('binary_classification_xception.keras')
