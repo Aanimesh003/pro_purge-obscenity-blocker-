@@ -30,7 +30,7 @@ with strategy.scope():
 checkpoint_callback = ModelCheckpoint('best_model.hdf5', monitor='val_accuracy', save_best_only=True, mode='max', verbose=1)
 
 #Train the model on your dataset with backup checkpoints.
-checkpoint_dir = 'checkpoints'
+checkpoint_dir = '/media/ryana/Trainingstore/'
 os.makedirs(checkpoint_dir, exist_ok=True)
 
 def save_model_and_weights(model, epoch):
@@ -40,7 +40,7 @@ def save_model_and_weights(model, epoch):
    print(f"Model saved at epoch {epoch}.")
 
 
-train_data_dir = '/mnt/c/Users/Animesh/Documents/ProPurgeDataSets/NudeNet_Classifier_train_data_x320/dataset/training/'
+train_data_dir = '/media/ryana/Trainingstore/Dataset/training/'
 train_datagen = ImageDataGenerator(rescale=1.0/255.0,  # Rescale pixel values to [0, 1].
                                    shear_range=0.2,
                                    zoom_range=0.2,
