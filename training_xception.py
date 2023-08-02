@@ -17,8 +17,8 @@ with strategy.scope():
 
     base_model.trainable = False
 
-    batch_size=32
-    epochs=10
+    batch_size=2000
+    epochs=20
     inputs = keras.Input(shape=(300, 300, 3))
     x = base_model(inputs, training=False)
     x = keras.layers.GlobalAveragePooling2D()(x)
@@ -36,11 +36,11 @@ checkpoint_callback = ModelCheckpoint('best_model.keras', monitor='val_accuracy'
 checkpoint_dir = '/media/ryana/Trainingstore/'
 os.makedirs(checkpoint_dir, exist_ok=True)
 
-def save_model_and_weights(model, epoch):
+def save_model_and_weights(model):
       # Save the entire model (architecture + weights).
-   model_path = os.path.join(checkpoint_dir, f'model_checkpoint_epoch_{epoch}.keras')
+   model_path = os.path.join(checkpoint_dir, f'model_checkpoint_epoch.keras')
    model.save(model_path)
-   print(f"Model saved at epoch {epoch}. Path:",model_path)
+   print("Model saved at epoch . Path:",model_path)
 
 
 train_data_dir = '/media/ryana/Trainingstore/Dataset/training/'
@@ -64,17 +64,17 @@ validation_generator = train_datagen.flow_from_directory(train_data_dir,
                                                          class_mode='categorical',
                                                          subset='validation')
 try:
-    for epoch in range(epochs):
-        model.fit( train_generator,
-        steps_per_epoch=train_generator.samples // batch_size,
-        validation_data=validation_generator,
-        validation_steps=validation_generator.samples // batch_size,
-        epochs=epochs,
-        callbacks=[checkpoint_callback])
-        
+    model.fit( train_generator,
+    steps_per_epoch=train_generator.samples // batch_size,
+    validation_data=validation_generator,
+    validation_steps=validation_generator.samples // batch_size,
+    epochs=epochs,
+    callbacks=[checkpoint_callback])
+    save_model_and_weights(model)
+
 except Exception as e:
     # In case of any unexpected issue during training, save the current model and weights before exiting.
-   save_model_and_weights(model, epoch+1)
+   save_model_and_weights(model)
    print(f"Training was interrupted with error: {e}")
    print("The current model and weights have been saved.")
 

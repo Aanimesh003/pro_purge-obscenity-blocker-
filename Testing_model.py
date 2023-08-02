@@ -28,5 +28,6 @@ print(predicted_class)
 if predicted_class == 0:
     print("Unsafe")
 if predicted_class == 1:
-    print("Sexy")
+    print("Safe")
 if predicted_class == 2:
+    print("Sexy")
