@@ -8,6 +8,7 @@ from tensorflow.keras.models import Model
 from tensorflow.keras.applications import Xception
 from tensorflow.keras.callbacks import ModelCheckpoint
 from tensorflow.keras.preprocessing.image import ImageDataGenerator
+from keras.models import load_model
 
 strategy = tf.distribute.MirroredStrategy()
 
@@ -21,9 +22,11 @@ with strategy.scope():
     inputs = keras.Input(shape=(300, 300, 3))
     x = base_model(inputs, training=False)
     x = keras.layers.GlobalAveragePooling2D()(x)
-    outputs = keras.layers.Dense(1)(x)
-    model = keras.Model(inputs, outputs)
-    loss_fn = keras.losses.BinaryCrossentropy(from_logits=True)
+    x = tf.keras.layers.Dense(256, activation='relu')(x)
+    x = tf.keras.layers.Dense(128, activation='relu')(x)
+    predictions = tf.keras.layers.Dense(3, activation='softmax')(x)
+    model = tf.keras.Model(inputs=inputs, outputs=predictions)
+    loss_fn = keras.losses.CategoricalCrossentropy(from_logits=True)
     optimizer = keras.optimizers.Adam()
     model.compile(optimizer=optimizer, loss=loss_fn, metrics=['accuracy'])
 
@@ -37,7 +40,7 @@ def save_model_and_weights(model, epoch):
       # Save the entire model (architecture + weights).
    model_path = os.path.join(checkpoint_dir, f'model_checkpoint_epoch_{epoch}.keras')
    model.save(model_path)
-   print(f"Model saved at epoch {epoch}.")
+   print(f"Model saved at epoch {epoch}. Path:",model_path)
 
 
 train_data_dir = '/media/ryana/Trainingstore/Dataset/training/'
@@ -51,14 +54,14 @@ train_datagen = ImageDataGenerator(rescale=1.0/255.0,  # Rescale pixel values to
 train_generator = train_datagen.flow_from_directory(train_data_dir,
                                                     target_size=(300, 300),
                                                     batch_size=32,
-                                                    class_mode='binary',
+                                                    class_mode='categorical',
                                                     subset='training')
 
 # Load validation images from the directory and apply preprocessing transformations.
 validation_generator = train_datagen.flow_from_directory(train_data_dir,
                                                          target_size=(300, 300),
                                                          batch_size=32,
-                                                         class_mode='binary',
+                                                         class_mode='categorical',
                                                          subset='validation')
 try:
     for epoch in range(epochs):
@@ -68,10 +71,10 @@ try:
         validation_steps=validation_generator.samples // batch_size,
         epochs=epochs,
         callbacks=[checkpoint_callback])
-        save_model_and_weights(model, epoch+1)
-
+        
 except Exception as e:
     # In case of any unexpected issue during training, save the current model and weights before exiting.
+   save_model_and_weights(model, epoch+1)
    print(f"Training was interrupted with error: {e}")
    print("The current model and weights have been saved.")
 
@@ -81,4 +84,4 @@ except Exception as e:
 #model = tf.keras.models.load_model(latest_model_path)
 
 # Step 9: Save the trained model for later use.
-model.save('binary_classification_xception.keras')
+model.save('categorical_classification_xception.keras')
