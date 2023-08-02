@@ -66,7 +66,7 @@ try:
         steps_per_epoch=train_generator.samples // batch_size,
         validation_data=validation_generator,
         validation_steps=validation_generator.samples // batch_size,
-        epochs=epochs
+        epochs=epochs,
         callbacks=[checkpoint_callback])
         save_model_and_weights(model, epoch+1)
 
