@@ -27,7 +27,7 @@ with strategy.scope():
     optimizer = keras.optimizers.Adam()
     model.compile(optimizer=optimizer, loss=loss_fn, metrics=['accuracy'])
 
-checkpoint_callback = ModelCheckpoint('best_model.h5', monitor='val_accuracy', save_best_only=True, mode='max', verbose=1)
+checkpoint_callback = ModelCheckpoint('best_model.hdf5', monitor='val_accuracy', save_best_only=True, mode='max', verbose=1)
 
 #Train the model on your dataset with backup checkpoints.
 checkpoint_dir = 'checkpoints'
