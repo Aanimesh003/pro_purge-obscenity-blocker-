@@ -35,7 +35,7 @@ os.makedirs(checkpoint_dir, exist_ok=True)
 
 def save_model_and_weights(model, epoch):
       # Save the entire model (architecture + weights).
-   model_path = os.path.join(checkpoint_dir, f'model_checkpoint_epoch_{epoch}.h5')
+   model_path = os.path.join(checkpoint_dir, f'model_checkpoint_epoch_{epoch}.hdf5')
    model.save(model_path)
    print(f"Model saved at epoch {epoch}.")
 
@@ -81,4 +81,4 @@ except Exception as e:
 #model = tf.keras.models.load_model(latest_model_path)
 
 # Step 9: Save the trained model for later use.
-model.save('binary_classification_xception.h5')
+model.save('binary_classification_xception.hdf5')
