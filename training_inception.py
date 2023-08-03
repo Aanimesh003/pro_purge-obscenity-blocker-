@@ -1,33 +1,35 @@
 import os
-import keras
 import numpy as np
 import keras.utils
 import keras.losses
 import tensorflow as tf
 from tensorflow.keras.models import Model
-from tensorflow.keras.applications import InceptionV3
+from tensorflow.keras.applications import Xception
+from keras import backend as K
 from tensorflow.keras.callbacks import ModelCheckpoint
 from tensorflow.keras.preprocessing.image import ImageDataGenerator
 from keras.models import load_model
+from PIL import ImageFile
+ImageFile.LOAD_TRUNCATED_IMAGES = True
 
 strategy = tf.distribute.MirroredStrategy()
 
 with strategy.scope():
-    base_model = InceptionV3(weights='imagenet', include_top=False, input_shape=(300, 300, 3))
+    base_model = Xception(weights='imagenet', include_top=False, input_shape=(300, 300, 3))
 
-    base_model.trainable = False
+    base_model.trainable = True
 
     batch_size=2000
     epochs=20
     inputs = keras.Input(shape=(300, 300, 3))
-    x = base_model(inputs, training=False)
+    x = base_model(inputs, training=True)
     x = keras.layers.GlobalAveragePooling2D()(x)
     x = tf.keras.layers.Dense(256, activation='relu')(x)
     x = tf.keras.layers.Dense(128, activation='relu')(x)
     predictions = tf.keras.layers.Dense(3, activation='softmax')(x)
     model = tf.keras.Model(inputs=inputs, outputs=predictions)
     loss_fn = keras.losses.CategoricalCrossentropy(from_logits=True)
-    optimizer = keras.optimizers.Adam()
+    optimizer = keras.optimizers.Adam(lr=0.00003)
     model.compile(optimizer=optimizer, loss=loss_fn, metrics=['accuracy'])
 
 checkpoint_callback = ModelCheckpoint('best_model.keras', monitor='val_accuracy', save_best_only=True, mode='max', verbose=1)
@@ -84,4 +86,4 @@ except Exception as e:
 #model = tf.keras.models.load_model(latest_model_path)
 
 # Step 9: Save the trained model for later use.
-model.save('categorical_classification_InceptionV3.keras')
+model.save('categorical_classification_Xception.keras')
