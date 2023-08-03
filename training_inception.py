@@ -17,12 +17,12 @@ strategy = tf.distribute.MirroredStrategy()
 with strategy.scope():
     base_model = Xception(weights='imagenet', include_top=False, input_shape=(300, 300, 3))
 
-    base_model.trainable = True
+    base_model.trainable = False
 
-    batch_size=2000
-    epochs=20
+    batch_size=8000
+    epochs=100
     inputs = keras.Input(shape=(300, 300, 3))
-    x = base_model(inputs, training=True)
+    x = base_model(inputs, training=False)
     x = keras.layers.GlobalAveragePooling2D()(x)
     x = tf.keras.layers.Dense(256, activation='relu')(x)
     x = tf.keras.layers.Dense(128, activation='relu')(x)
@@ -32,11 +32,14 @@ with strategy.scope():
     optimizer = keras.optimizers.Adam(lr=0.00003)
     model.compile(optimizer=optimizer, loss=loss_fn, metrics=['accuracy'])
 
-checkpoint_callback = ModelCheckpoint('best_model.keras', monitor='val_accuracy', save_best_only=True, mode='max', verbose=1)
-
 #Train the model on your dataset with backup checkpoints.
 checkpoint_dir = '/media/ryana/Trainingstore/'
 os.makedirs(checkpoint_dir, exist_ok=True)
+
+best_model_checkpoint_dir = '/media/ryana/Trainingstore/BEST_MODEL/'
+os.makedirs(best_model_checkpoint_dir, exist_ok=True)
+
+checkpoint_callback = ModelCheckpoint(filepath=best_model_checkpoint_dir, monitor='val_accuracy', save_best_only=True, mode='max', verbose=1)
 
 def save_model_and_weights(model):
       # Save the entire model (architecture + weights).
