@@ -14,12 +14,11 @@ Dataset and AI Model Training
 Animesh Singh Yadav
 Rayan Singh
 
-Browser Extension:
-Website data scraping and Conditioning:
-Divyansh Singhal
-Sarthak Arora
-
-Audio Code:
+Audio Detection and Censoring:
 Audio Censoring and Blacklisting
 Shreya Gupta
 Trishubh Shukla
+
+Dataset Downloading and Cleaning:
+Divyansh Singhal
+Sarthak Arora
