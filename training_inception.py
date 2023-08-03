@@ -29,14 +29,14 @@ with strategy.scope():
     predictions = tf.keras.layers.Dense(3, activation='softmax')(x)
     model = tf.keras.Model(inputs=inputs, outputs=predictions)
     loss_fn = keras.losses.CategoricalCrossentropy(from_logits=True)
-    optimizer = keras.optimizers.Adam(lr=0.00003)
+    optimizer = keras.optimizers.Adam(learning_rate=0.00003)
     model.compile(optimizer=optimizer, loss=loss_fn, metrics=['accuracy'])
 
 #Train the model on your dataset with backup checkpoints.
 checkpoint_dir = '/media/ryana/Trainingstore/'
 os.makedirs(checkpoint_dir, exist_ok=True)
 
-best_model_checkpoint_dir = '/media/ryana/Trainingstore/BEST_MODEL/'
+best_model_checkpoint_dir = '/media/ryana/Trainingstore/BEST_MODEL.keras'
 os.makedirs(best_model_checkpoint_dir, exist_ok=True)
 
 checkpoint_callback = ModelCheckpoint(filepath=best_model_checkpoint_dir, monitor='val_accuracy', save_best_only=True, mode='max', verbose=1)
