@@ -1,2 +1,11 @@
 nudenet
 PySimpleGUI
+asyncio
+pyaudio
+winsound
+tkinter
+keras
+tensorflow
+scipy
+numpy
+miniconda
