@@ -18,8 +18,7 @@ with strategy.scope():
     base_model = Xception(weights='imagenet', include_top=False, input_shape=(300, 300, 3))
 
     base_model.trainable = False
-
-    Batch_size=512
+    Batch_size=400
     epochs=25
     inputs = keras.Input(shape=(300, 300, 3))
     x = base_model(inputs, training=False)
@@ -68,20 +67,21 @@ validation_generator = train_datagen.flow_from_directory(train_data_dir,
                                                          batch_size=Batch_size,
                                                          class_mode='categorical',
                                                          subset='validation')
-try:
-    model.fit( train_generator,
-    steps_per_epoch=train_generator.samples // Batch_size,
-    validation_data=validation_generator,
-    validation_steps=validation_generator.samples // Batch_size,
-    epochs=epochs,
-    callbacks=[checkpoint_callback])
-    save_model_and_weights(model)
-
-except Exception as e:
-    # In case of any unexpected issue during training, save the current model and weights before exiting.
-   save_model_and_weights(model)
-   print(f"Training was interrupted with error: {e}")
-   print("The current model and weights have been saved.")
+#try:
+#    print("Training New Model")
+#    model.fit( train_generator,
+#    steps_per_epoch=train_generator.samples // Batch_size,
+#    validation_data=validation_generator,
+#    validation_steps=validation_generator.samples // Batch_size,
+#    epochs=epochs,
+#    callbacks=[checkpoint_callback])
+#    save_model_and_weights(model)
+#
+#except Exception as e:
+#    # In case of any unexpected issue during training, save the current model and weights before exiting.
+#   save_model_and_weights(model)
+#   print(f"Training was interrupted with error: {e}")
+#   print("The current model and weights have been saved.")
 
 # Step 8: Load the latest saved model and weights if training was interrupted.
 #latest_epoch = 10  # Replace this with the epoch number of the latest saved model.
@@ -93,8 +93,8 @@ model.save('categorical_classification_Xception.keras')
 
 
 with strategy.scope():
+    print("Training Retrived_Model")
     new_model = load_model("/media/ryana/Trainingstore/BEST_MODEL")
-
     new_model.fit(train_generator,
     steps_per_epoch=train_generator.samples // Batch_size,
     validation_data=validation_generator,
