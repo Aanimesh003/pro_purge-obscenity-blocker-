@@ -19,7 +19,7 @@ with strategy.scope():
 
     base_model.trainable = False
 
-    batch_size=800
+    Batch_size=800
     epochs=25
     inputs = keras.Input(shape=(300, 300, 3))
     x = base_model(inputs, training=False)
@@ -58,21 +58,21 @@ train_datagen = ImageDataGenerator(rescale=1.0/255.0,  # Rescale pixel values to
 # Load training images from the directory and apply preprocessing transformations.
 train_generator = train_datagen.flow_from_directory(train_data_dir,
                                                     target_size=(300, 300),
-                                                    batch_size=32,
+                                                    batch_size=Batch_size,
                                                     class_mode='categorical',
                                                     subset='training')
 
 # Load validation images from the directory and apply preprocessing transformations.
 validation_generator = train_datagen.flow_from_directory(train_data_dir,
                                                          target_size=(300, 300),
-                                                         batch_size=32,
+                                                         batch_size=Batch_size,
                                                          class_mode='categorical',
                                                          subset='validation')
 try:
     model.fit( train_generator,
-    steps_per_epoch=train_generator.samples // batch_size,
+    steps_per_epoch=train_generator.samples // Batch_size,
     validation_data=validation_generator,
-    validation_steps=validation_generator.samples // batch_size,
+    validation_steps=validation_generator.samples // Batch_size,
     epochs=epochs,
     callbacks=[checkpoint_callback])
     save_model_and_weights(model)
@@ -90,3 +90,16 @@ except Exception as e:
 
 # Step 9: Save the trained model for later use.
 model.save('categorical_classification_Xception.keras')
+
+
+with strategy.scope():
+    new_model = load_model("C:\Users\Animesh\OneDrive - Amity University\Documents\Python Scripts\BEST_MODEL")
+
+    new_model.fit(train_generator,
+    steps_per_epoch=train_generator.samples // Batch_size,
+    validation_data=validation_generator,
+    validation_steps=validation_generator.samples // Batch_size,
+    epochs=epochs,
+    callbacks=[checkpoint_callback])
+    
+    new_model.save('final_model.keras')

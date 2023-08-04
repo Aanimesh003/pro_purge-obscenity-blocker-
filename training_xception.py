@@ -17,7 +17,7 @@ with strategy.scope():
 
     base_model.trainable = False
 
-    batch_size=2000
+    batch_size=800
     epochs=20
     inputs = keras.Input(shape=(300, 300, 3))
     x = base_model(inputs, training=False)
@@ -40,7 +40,7 @@ def save_model_and_weights(model):
       # Save the entire model (architecture + weights).
    model_path = os.path.join(checkpoint_dir, f'model_checkpoint_epoch.keras')
    model.save(model_path)
-   print("Model saved at epoch . Path:",model_path)
+   print("Model saved at Path:",model_path)
 
 
 train_data_dir = '/media/ryana/Trainingstore/Dataset/training/'
@@ -53,14 +53,14 @@ train_datagen = ImageDataGenerator(rescale=1.0/255.0,  # Rescale pixel values to
 # Load training images from the directory and apply preprocessing transformations.
 train_generator = train_datagen.flow_from_directory(train_data_dir,
                                                     target_size=(300, 300),
-                                                    batch_size=32,
+                                                    batch_size=800,
                                                     class_mode='categorical',
                                                     subset='training')
 
 # Load validation images from the directory and apply preprocessing transformations.
 validation_generator = train_datagen.flow_from_directory(train_data_dir,
                                                          target_size=(300, 300),
-                                                         batch_size=32,
+                                                         batch_size=800,
                                                          class_mode='categorical',
                                                          subset='validation')
 try:
@@ -70,18 +70,14 @@ try:
     validation_steps=validation_generator.samples // batch_size,
     epochs=epochs,
     callbacks=[checkpoint_callback])
-    save_model_and_weights(model)
+    
 
 except Exception as e:
-    # In case of any unexpected issue during training, save the current model and weights before exiting.
-   save_model_and_weights(model)
+
    print(f"Training was interrupted with error: {e}")
    print("The current model and weights have been saved.")
 
-# Step 8: Load the latest saved model and weights if training was interrupted.
-#latest_epoch = 10  # Replace this with the epoch number of the latest saved model.
-#latest_model_path = os.path.join(checkpoint_dir, f'model_checkpoint_epoch_{latest_epoch}.h5')
-#model = tf.keras.models.load_model(latest_model_path)
 
-# Step 9: Save the trained model for later use.
+
+#  Saving the trained model for use.
 model.save('categorical_classification_xception.keras')
