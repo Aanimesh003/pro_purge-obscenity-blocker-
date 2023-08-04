@@ -19,7 +19,7 @@ with strategy.scope():
 
     base_model.trainable = False
 
-    Batch_size=800
+    Batch_size=512
     epochs=25
     inputs = keras.Input(shape=(300, 300, 3))
     x = base_model(inputs, training=False)
@@ -29,7 +29,7 @@ with strategy.scope():
     predictions = tf.keras.layers.Dense(3, activation='softmax')(x)
     model = tf.keras.Model(inputs=inputs, outputs=predictions)
     loss_fn = keras.losses.CategoricalCrossentropy(from_logits=True)
-    optimizer = keras.optimizers.Adam(learning_rate=0.00003)
+    optimizer = keras.optimizers.Adam(learning_rate=0.00001)
     model.compile(optimizer=optimizer, loss=loss_fn, metrics=['accuracy'])
 
 #Train the model on your dataset with backup checkpoints.
@@ -93,7 +93,7 @@ model.save('categorical_classification_Xception.keras')
 
 
 with strategy.scope():
-    new_model = load_model("C:\Users\Animesh\OneDrive - Amity University\Documents\Python Scripts\BEST_MODEL")
+    new_model = load_model("/media/ryana/Trainingstore/BEST_MODEL")
 
     new_model.fit(train_generator,
     steps_per_epoch=train_generator.samples // Batch_size,
