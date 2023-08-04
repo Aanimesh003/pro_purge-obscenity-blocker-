@@ -20,7 +20,7 @@ with strategy.scope():
     base_model.trainable = False
 
     batch_size=800
-    epochs=100
+    epochs=25
     inputs = keras.Input(shape=(300, 300, 3))
     x = base_model(inputs, training=False)
     x = keras.layers.GlobalAveragePooling2D()(x)
