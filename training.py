@@ -27,7 +27,7 @@ with strategy.scope():
     x = tf.keras.layers.Dense(128, activation='relu')(x)
     predictions = tf.keras.layers.Dense(2, activation='sigmoid')(x)
     model = tf.keras.Model(inputs=inputs, outputs=predictions)
-    loss_fn = keras.losses.binary_crossentropy(from_logits=True)
+    loss_fn = keras.losses.BinaryCrossentropy(from_logits=True)
     optimizer = keras.optimizers.Adam(learning_rate=0.001)
     model.compile(optimizer=optimizer, loss=loss_fn, metrics=['accuracy'])
 
