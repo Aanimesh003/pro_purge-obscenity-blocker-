@@ -25,9 +25,9 @@ with strategy.scope():
     x = keras.layers.GlobalAveragePooling2D()(x)
     x = tf.keras.layers.Dense(256, activation='relu')(x)
     x = tf.keras.layers.Dense(128, activation='relu')(x)
-    predictions = tf.keras.layers.Dense(2, activation='sigmoid')(x)
+    predictions = tf.keras.layers.Dense(1, activation='sigmoid')(x)
     model = tf.keras.Model(inputs=inputs, outputs=predictions)
-    loss_fn = keras.losses.BinaryCrossentropy(from_logits=False)
+    loss_fn = keras.losses.BinaryCrossentropy(from_logits=True)
     optimizer = keras.optimizers.Adam(learning_rate=0.001)
     model.compile(optimizer=optimizer, loss=loss_fn, metrics=['accuracy'])
 
@@ -67,21 +67,21 @@ validation_generator = train_datagen.flow_from_directory(train_data_dir,
                                                          batch_size=Batch_size,
                                                          class_mode='binary',
                                                          subset='validation')
-#try:
-#    print("Training New Model")
-#    model.fit( train_generator,
-#    steps_per_epoch=train_generator.samples // Batch_size,
-#    validation_data=validation_generator,
-#    validation_steps=validation_generator.samples // Batch_size,
-#    epochs=epochs,
-#    callbacks=[checkpoint_callback])
-#    save_model_and_weights(model)
-#
-#except Exception as e:
-#    # In case of any unexpected issue during training, save the current model and weights before exiting.
-#   save_model_and_weights(model)
-#   print(f"Training was interrupted with error: {e}")
-#   print("The current model and weights have been saved.")
+try:
+    print("Training New Model")
+    model.fit( train_generator,
+    steps_per_epoch=train_generator.samples // Batch_size,
+    validation_data=validation_generator,
+    validation_steps=validation_generator.samples // Batch_size,
+    epochs=epochs,
+    callbacks=[checkpoint_callback])
+    save_model_and_weights(model)
+
+except Exception as e:
+    # In case of any unexpected issue during training, save the current model and weights before exiting.
+   save_model_and_weights(model)
+   print(f"Training was interrupted with error: {e}")
+   print("The current model and weights have been saved.")
 
 # Step 8: Load the latest saved model and weights if training was interrupted.
 #latest_epoch = 10  # Replace this with the epoch number of the latest saved model.
@@ -89,6 +89,7 @@ validation_generator = train_datagen.flow_from_directory(train_data_dir,
 #model = tf.keras.models.load_model(latest_model_path)
 
 # Step 9: Save the trained model for later use.
+"""""
 model.save('/media/ryana/Trainingstore/categorical_classification_Xception.keras')
 print("MODEL SAVED ?")
 
@@ -104,3 +105,4 @@ with strategy.scope():
     callbacks=[checkpoint_callback])
     
     new_model.save('final_model.keras')
+    """
