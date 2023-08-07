@@ -25,10 +25,10 @@ with strategy.scope():
     x = keras.layers.GlobalAveragePooling2D()(x)
     x = tf.keras.layers.Dense(256, activation='relu')(x)
     x = tf.keras.layers.Dense(128, activation='relu')(x)
-    predictions = tf.keras.layers.Dense(2, activation='softmax')(x)
+    predictions = tf.keras.layers.Dense(2, activation='sigmoid')(x)
     model = tf.keras.Model(inputs=inputs, outputs=predictions)
-    loss_fn = keras.losses.CategoricalCrossentropy(from_logits=True)
-    optimizer = keras.optimizers.Adam(learning_rate=0.00002)
+    loss_fn = keras.losses.binary_crossentropy(from_logits=True)
+    optimizer = keras.optimizers.Adam(learning_rate=0.001)
     model.compile(optimizer=optimizer, loss=loss_fn, metrics=['accuracy'])
 
 #Train the model on your dataset with backup checkpoints.
@@ -58,14 +58,14 @@ train_datagen = ImageDataGenerator(rescale=1.0/255.0,  # Rescale pixel values to
 train_generator = train_datagen.flow_from_directory(train_data_dir,
                                                     target_size=(300, 300),
                                                     batch_size=Batch_size,
-                                                    class_mode='categorical',
+                                                    class_mode='binary',
                                                     subset='training')
 
 # Load validation images from the directory and apply preprocessing transformations.
 validation_generator = train_datagen.flow_from_directory(train_data_dir,
                                                          target_size=(300, 300),
                                                          batch_size=Batch_size,
-                                                         class_mode='categorical',
+                                                         class_mode='binary',
                                                          subset='validation')
 #try:
 #    print("Training New Model")
