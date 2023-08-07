@@ -18,7 +18,7 @@ with strategy.scope():
     base_model = Xception(weights='imagenet', include_top=False, input_shape=(300, 300, 3))
 
     base_model.trainable = False
-    Batch_size=400
+    Batch_size=800
     epochs=25
     inputs = keras.Input(shape=(300, 300, 3))
     x = base_model(inputs, training=False)
@@ -28,7 +28,7 @@ with strategy.scope():
     predictions = tf.keras.layers.Dense(3, activation='softmax')(x)
     model = tf.keras.Model(inputs=inputs, outputs=predictions)
     loss_fn = keras.losses.CategoricalCrossentropy(from_logits=True)
-    optimizer = keras.optimizers.Adam(learning_rate=0.00001)
+    optimizer = keras.optimizers.Adam(learning_rate=0.00002)
     model.compile(optimizer=optimizer, loss=loss_fn, metrics=['accuracy'])
 
 #Train the model on your dataset with backup checkpoints.
