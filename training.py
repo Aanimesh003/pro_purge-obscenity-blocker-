@@ -25,7 +25,7 @@ with strategy.scope():
     x = keras.layers.GlobalAveragePooling2D()(x)
     x = tf.keras.layers.Dense(256, activation='relu')(x)
     x = tf.keras.layers.Dense(128, activation='relu')(x)
-    predictions = tf.keras.layers.Dense(3, activation='softmax')(x)
+    predictions = tf.keras.layers.Dense(2, activation='softmax')(x)
     model = tf.keras.Model(inputs=inputs, outputs=predictions)
     loss_fn = keras.losses.CategoricalCrossentropy(from_logits=True)
     optimizer = keras.optimizers.Adam(learning_rate=0.00002)
