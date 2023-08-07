@@ -35,10 +35,10 @@ with strategy.scope():
 checkpoint_dir = '/media/ryana/Trainingstore/'
 os.makedirs(checkpoint_dir, exist_ok=True)
 
-best_model_checkpoint_dir = '/media/ryana/Trainingstore/BEST_MODEL'
-os.makedirs(best_model_checkpoint_dir, exist_ok=True)
+best_model_checkpoint_dir = '/media/ryana/Trainingstore/BEST_MODEL.keras'
+#os.makedirs(best_model_checkpoint_dir, exist_ok=True)
 
-checkpoint_callback = ModelCheckpoint(filepath=best_model_checkpoint_dir, monitor='val_accuracy', save_best_only=True, mode='max', verbose=1)
+checkpoint_callback = ModelCheckpoint(best_model_checkpoint_dir, monitor='val_accuracy', save_best_only=True, mode='max')
 
 def save_model_and_weights(model):
       # Save the entire model (architecture + weights).
