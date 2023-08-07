@@ -18,7 +18,7 @@ with strategy.scope():
     base_model = Xception(weights='imagenet', include_top=False, input_shape=(300, 300, 3))
 
     base_model.trainable = False
-    Batch_size=800
+    Batch_size=400
     epochs=25
     inputs = keras.Input(shape=(300, 300, 3))
     x = base_model(inputs, training=False)
@@ -89,7 +89,8 @@ validation_generator = train_datagen.flow_from_directory(train_data_dir,
 #model = tf.keras.models.load_model(latest_model_path)
 
 # Step 9: Save the trained model for later use.
-model.save('categorical_classification_Xception.keras')
+model.save('/media/ryana/Trainingstore/categorical_classification_Xception.keras')
+print("MODEL SAVED ?")
 
 
 with strategy.scope():
