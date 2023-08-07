@@ -3,7 +3,7 @@ import numpy as np
 from keras.preprocessing.image import load_img, img_to_array
 
 # Load the model
-model = keras.models.load_model("C:\\Users\\Animesh\\Downloads\\model_checkpoint_epoch.keras")
+model = keras.models.load_model("D:\pythontt\BEST_MODEL")
 
 # Load the image
 img = load_img("D:\project_dataset\check_script\image_19.jpg" , target_size=(300, 300))
