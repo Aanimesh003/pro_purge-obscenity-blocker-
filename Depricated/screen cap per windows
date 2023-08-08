@@ -1,0 +1,19 @@
+import pygetwindow as gw
+import pyautogui
+from PIL import ImageGrab
+import time
+
+# Loop through each window and capture a screenshot
+windowlist=gw.getAllWindows()
+print(type(gw.getAllWindows()))
+print(type(windowlist[1]))
+for i in windowlist:
+    if windowtitle:
+        windowrect = (window.left, window.top, window.width, window.height)
+        screenshot = ImageGrab.grab(bbox=window_rect)
+        screenshot.save(f"{window_title}L.png")
+
+        # Add a delay to avoid capturing too quickly
+        time.sleep(1)
+
+print("Screenshots captured for all windows.")
