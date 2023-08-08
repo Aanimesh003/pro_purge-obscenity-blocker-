@@ -36,9 +36,10 @@ while True:
     
     a = classifier.classify("pic.png")
 
-    unsafe_per=round(100*a["pic.png"]['unsafe'],2)
-    safe_per=round(100*a["pic.png"]['safe'],2)          
-    if unsafe_per > 60 :
+    safe_per=round(100*a["pic.png"]['safe'],2)      
+  
+    if safe_per < 40 :
+        pyautogui.hotkey('alt', 'f4')
         # TO ADD: SEND OBSECNITY ALERT NOTIFICATION
         # Proper Integration into a Fuction
         # Launching a Script for Overlay that is a seperate file
@@ -57,6 +58,6 @@ while True:
         # Show the overlay after a short delay
         root.after(100, show_overlay)
         root.mainloop()
+
             
-    print("Unsafe",unsafe_per,"%")
-    print("Safe",safe_per,"%")
+    print("safe",safe_per,"%")
