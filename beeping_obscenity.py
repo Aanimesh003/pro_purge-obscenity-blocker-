@@ -167,7 +167,7 @@ def print_transcript(msg):
 
 
 def beep_sound_for_1_second():
-    winsound.Beep(3000,1000)
+    winsound.Beep(1000,900)
 
 
 
