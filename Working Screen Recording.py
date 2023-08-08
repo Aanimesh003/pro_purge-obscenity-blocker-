@@ -1,6 +1,6 @@
 import time
 import numpy as np
-import classifier
+from classifier import Classifier
 import pyautogui
 import tkinter as tk
 import imgcompare
@@ -40,8 +40,8 @@ while True:
 #    print("image taken")
     if (is_same==False or i==10):
         i=0
-        a = classifier.classify("pic.png")
-
+        a = Classifier.classify("pic.png")
+        print(a)
         safe_per=round(100*a["pic.png"]['safe'],2)      
     
         if safe_per < 40 :
