@@ -139,3 +139,16 @@ def load_images(image_paths, image_size, image_names):
             logging.exception(f"Error reading {img_path} {ex}", exc_info=True)
 
     return np.asarray(loaded_images), loaded_image_paths
+
+def splitimage(path):
+    with pil_image.open(path) as im:
+        width, height = im.size
+        quarters = [(0, 0, width / 2, height), (width / 2, 0, width, height)]
+
+        # Looping over the quarters
+        for i, q in enumerate(quarters):
+            # Cropping the image
+            im_crop = im.crop(q)
+
+            # Saving the cropped image to a file
+            im_crop.save(f"image_{i+1}.png")

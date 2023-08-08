@@ -5,7 +5,7 @@ import pyautogui
 import tkinter as tk
 import imgcompare
 from PIL import ImageGrab
-
+import image_utils
 
 def close_overlay(overlay, freeze_screen):
     overlay.grab_release()
@@ -42,10 +42,17 @@ while True:
     #    print("image taken")
         if (is_same==False or i==10):
             i=0
-            a = Classifier.classify("pic1.png")
-            safe_per=round(100*a["pic1.png"]['safe'],2)
-        
-            if safe_per < 40 :
+            image_utils.splitimage("pic1.png")
+
+            a = Classifier.classify("image_1.png")
+            safe_per=round(100*a["image_1.png"]['safe'],2)
+            print("safe_per_1",safe_per)
+
+            a = Classifier.classify("image_2.png")
+            safe_per1=round(100*a["image_2.png"]['safe'],2)
+            print("safe_per_2",safe_per)
+
+            if safe_per < 40 or safe_per1 < 40 :
                 pyautogui.hotkey('alt', 'f4') #Keyboard inputs to Close Obscene window
                 # TO ADD: SEND OBSECNITY ALERT NOTIFICATION
                 # Proper Integration into a Fuction
