@@ -15,7 +15,7 @@ class Classifier:
         image_size=(300,300),
         categories=["safe"],
     ):
-        model_path="C:\\Users\\ryana\\Downloads\\BEST_MODEL.onnx"
+        model_path="D:\pythontt\onnx_model\Model.onnx"
         nsfw_model = onnxruntime.InferenceSession(model_path)
 
         if not isinstance(image_paths, list):
