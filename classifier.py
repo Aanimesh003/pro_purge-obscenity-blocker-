@@ -17,19 +17,15 @@ class Classifier:
 
     nsfw_model = None
 
-    def __init__(self):
-        """
-        model = Classifier()
-        """
-        model_path="C:\\Users\\ryana\\Downloads\\classifier_model.onnx"
-        self.nsfw_model = onnxruntime.InferenceSession(model_path)
+
     def classify(
-        self,
         image_paths=[],
         batch_size=4,
         image_size=(300, 300),
         categories=[ "safe"],
     ):
+        model_path="C:\\Users\\ryana\\Downloads\\classifier_model.onnx"
+        nsfw_model = onnxruntime.InferenceSession(model_path)
         """
         inputs:
             image_paths: list of image paths or can be a string too (for single image)
@@ -50,9 +46,9 @@ class Classifier:
         preds = []
         model_preds = []
         while len(loaded_images):
-            _model_preds = self.nsfw_model.run(
-                [self.nsfw_model.get_outputs()[0].name],
-                {self.nsfw_model.get_inputs()[0].name: loaded_images[:batch_size]},
+            _model_preds = nsfw_model.run(
+                [nsfw_model.get_outputs()[0].name],
+                {nsfw_model.get_inputs()[0].name: loaded_images[:batch_size]},
             )[0]
             model_preds.append(_model_preds)
             preds += np.argsort(_model_preds, axis=1).tolist()

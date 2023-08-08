@@ -41,7 +41,6 @@ while True:
     if (is_same==False or i==10):
         i=0
         a = Classifier.classify("pic.png")
-        print(a)
         safe_per=round(100*a["pic.png"]['safe'],2)
     
         if safe_per < 40 :
