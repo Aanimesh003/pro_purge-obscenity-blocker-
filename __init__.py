@@ -1,1 +1,1 @@
-from .classifier import Classifier as NudeClassifier
+from .classifier import Classifier as Classifier
