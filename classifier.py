@@ -53,7 +53,7 @@ class Classifier:
         )
 
         if not loaded_image_paths:
-            return {"Lund"}
+            return {"Check Image Paths"}
 
         preds = []
         model_preds = []
