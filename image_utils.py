@@ -82,7 +82,7 @@ def load_img(
     return img
 
 
-def img_to_array(img, data_format="channels_last", dtype="float32"):
+def img_to_array(img, data_format="channels_last", dtype="float16"):
     """Converts a PIL Image instance to a Numpy array.
     # Arguments
         img: PIL Image instance.

@@ -44,7 +44,7 @@ while True:
             a = Classifier.classify("pic1.png")
             safe_per=round(100*a["pic1.png"]['safe'],2)
         
-            if safe_per < 80 :
+            if safe_per < 40 :
                 pyautogui.hotkey('alt', 'f4') #Keyboard inputs to Close Obscene window
                 # TO ADD: SEND OBSECNITY ALERT NOTIFICATION
                 # Proper Integration into a Fuction
