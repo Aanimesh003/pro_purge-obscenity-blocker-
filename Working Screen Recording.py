@@ -35,14 +35,13 @@ while True:
     screenshot = pyautogui.screenshot('pic.png')
     time.sleep(0.2)
     screenshot = pyautogui.screenshot('pic1.png')
-    is_same = imgcompare.is_equal("pic.png", "pic1.png", tolerance=2.5)
+    is_same = imgcompare.is_equal("pic.png", "pic1.png", tolerance=1.5)
     i=i+1
-    print(i)
 #    print("image taken")
     if (is_same==False or i==10):
         i=0
-        a = Classifier.classify("pic2.png")
-        safe_per=round(100*a["pic2.png"]['safe'],2)
+        a = Classifier.classify("pic1.png")
+        safe_per=round(100*a["pic1.png"]['safe'],2)
     
         if safe_per < 40 :
             pyautogui.hotkey('alt', 'f4') #Keyboard inputs to Close Obscene window
