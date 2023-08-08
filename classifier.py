@@ -1,8 +1,3 @@
-import os
-import cv2
-import tarfile
-import pydload
-import logging
 import numpy as np
 import onnxruntime
 from image_utils import load_images
@@ -10,33 +5,19 @@ from PIL import Image as pil_image
 
 
 class Classifier:
-    """
-    Class for loading model and running predictions.
-    For example on how to use take a look the if __name__ == '__main__' part.
-    """
 
     nsfw_model = None
 
-    def __init__(self):
-        """
-        model = Classifier()
-        """
-        model_path="C:\\Users\\ryana\\Downloads\\classifier_model.onnx"
-        self.nsfw_model = onnxruntime.InferenceSession(model_path)
+
     def classify(
-        self,
         image_paths=[],
         batch_size=4,
-        image_size=(300, 300),
-        categories=[ "safe"],
+        image_size=(300,300),
+        categories=["safe"],
     ):
-        """
-        inputs:
-            image_paths: list of image paths or can be a string too (for single image)
-            batch_size: batch_size for running predictions
-            image_size: size to which the image needs to be resized
-            categories: since the model predicts numbers, categories is the list of actual names of categories
-        """
+        model_path="C:\\Users\\ryana\\Downloads\\BEST_MODEL.onnx"
+        nsfw_model = onnxruntime.InferenceSession(model_path)
+
         if not isinstance(image_paths, list):
             image_paths = [image_paths]
 
@@ -50,9 +31,9 @@ class Classifier:
         preds = []
         model_preds = []
         while len(loaded_images):
-            _model_preds = self.nsfw_model.run(
-                [self.nsfw_model.get_outputs()[0].name],
-                {self.nsfw_model.get_inputs()[0].name: loaded_images[:batch_size]},
+            _model_preds = nsfw_model.run(
+                [nsfw_model.get_outputs()[0].name],
+                {nsfw_model.get_inputs()[0].name: loaded_images[:batch_size]},
             )[0]
             model_preds.append(_model_preds)
             preds += np.argsort(_model_preds, axis=1).tolist()
@@ -80,15 +61,3 @@ class Classifier:
                 images_preds[loaded_image_path][preds[i][_]] = float(probs[i][_])
 
         return images_preds
-
-
-if __name__ == "__main__":
-    m = Classifier()
-
-    while 1:
-        print(
-            "\n Enter single image path or multiple images seperated by || (2 pipes) \n"
-        )
-        images = input().split("||")
-        images = [image.strip() for image in images]
-        print(m.predict(images), "\n")
