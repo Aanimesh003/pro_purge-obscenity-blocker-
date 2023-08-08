@@ -71,8 +71,5 @@ while True:
                 # Show the overlay after a short delay
                 root.after(100, show_overlay)
                 root.mainloop()
-
-                    
-            print("safe",safe_per,"%")
     except:
         print("Unable to take Sreenshot Device may be Asleep")
