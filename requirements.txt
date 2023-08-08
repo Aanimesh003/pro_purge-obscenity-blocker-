@@ -9,3 +9,8 @@ tensorflow
 scipy
 numpy
 miniconda
+#for audio processing
+speechmatics
+asyncio
+pyaudio
+winsound
