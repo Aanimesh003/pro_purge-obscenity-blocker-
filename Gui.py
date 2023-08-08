@@ -33,14 +33,14 @@ class DeskApp:
     def run_video_detection(self):
         self.recording = True
         while self.recording:
-            # Replace this with your video detection logic
-            print("Detecting video...")
+            subprocess.run(['python', 'Working Screen Recording.py'])
+            
 
     def run_audio_detection(self):
         self.audio_detecting = True
         while self.audio_detecting:
-            # Replace this with your audio detection logic
-            print("Detecting audio...")
+            subprocess.run(['python', 'beeping_obscenity.py'])
+            
 
     def stop_processes(self):
         self.recording = False
