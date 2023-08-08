@@ -1,6 +1,6 @@
 import time
 import numpy as np
-from nudenet import NudeClassifier
+import classifier
 import pyautogui
 import tkinter as tk
 import imgcompare
@@ -29,7 +29,6 @@ def show_overlay():
     # After 20 seconds, close the overlay and the application
     overlay.after(2000, close_overlay, overlay, freeze_screen)
 
-classifier = NudeClassifier()
 i=0
 while True:
     #Optimization Required Need Faster Screenshot Implementation

@@ -5,7 +5,7 @@ import pydload
 import logging
 import numpy as np
 import onnxruntime
-from .image_utils import load_images
+from image_utils import load_images
 from PIL import Image as pil_image
 
 
