@@ -21,15 +21,7 @@ class Classifier:
         """
         model = Classifier()
         """
-        home = os.path.expanduser("~")
-        model_folder = os.path.join(home, ".NudeNet/")
-        if not os.path.exists(model_folder):
-            os.mkdir(model_folder)
-
-        if not os.path.exists(model_path):
-            print("Downloading the checkpoint to", model_path)
-            pydload.dload(url, save_to_path=model_path, max_time=None)
-
+        model_path="C:\\Users\\ryana\\Downloads\\classifier_model.onnx"
         self.nsfw_model = onnxruntime.InferenceSession(model_path)
     def classify(
         self,

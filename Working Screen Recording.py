@@ -42,7 +42,7 @@ while True:
         i=0
         a = Classifier.classify("pic.png")
         print(a)
-        safe_per=round(100*a["pic.png"]['safe'],2)      
+        safe_per=round(100*a["pic.png"]['safe'],2)
     
         if safe_per < 40 :
             pyautogui.hotkey('alt', 'f4') #Keyboard inputs to Close Obscene window
