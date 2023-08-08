@@ -33,6 +33,7 @@ i=0
 while True:
     #Optimization Required Need Faster Screenshot Implementation
     screenshot = pyautogui.screenshot('pic.png')
+    time.sleep(0.2)
     screenshot = pyautogui.screenshot('pic1.png')
     is_same = imgcompare.is_equal("pic.png", "pic1.png", tolerance=2.5)
     i=i+1
@@ -40,8 +41,8 @@ while True:
 #    print("image taken")
     if (is_same==False or i==10):
         i=0
-        a = Classifier.classify("pic.png")
-        safe_per=round(100*a["pic.png"]['safe'],2)
+        a = Classifier.classify("pic2.png")
+        safe_per=round(100*a["pic2.png"]['safe'],2)
     
         if safe_per < 40 :
             pyautogui.hotkey('alt', 'f4') #Keyboard inputs to Close Obscene window

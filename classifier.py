@@ -21,10 +21,10 @@ class Classifier:
     def classify(
         image_paths=[],
         batch_size=4,
-        image_size=(300, 300),
-        categories=[ "safe"],
+        image_size=(300,300),
+        categories=["safe"],
     ):
-        model_path="C:\\Users\\ryana\\Downloads\\classifier_model.onnx"
+        model_path="C:\\Users\\ryana\\Downloads\\BEST_MODEL.onnx"
         nsfw_model = onnxruntime.InferenceSession(model_path)
         """
         inputs:
