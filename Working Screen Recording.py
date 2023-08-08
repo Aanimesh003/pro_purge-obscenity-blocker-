@@ -4,6 +4,7 @@ from classifier import Classifier
 import pyautogui
 import tkinter as tk
 import imgcompare
+from PIL import ImageGrab
 
 
 def close_overlay(overlay, freeze_screen):
