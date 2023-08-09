@@ -20,7 +20,7 @@ def sendmail(
 
     with open("pic1.png", "rb") as f:
         image_data = f.read()
-    image = MIMEImage(image_data)
+    image = MIMEImage(image_data,_subtype="png")
     image.add_header('Content-Disposition', 'attachment', filename="pic.png")
     msg.attach(image)
 
