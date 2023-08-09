@@ -45,8 +45,9 @@ class Detector:
             processed_boxes.append(
                 {"box": [int(c) for c in box], "score": float(score), "label": label}
             )
-        detection_model.end_profiling()
+        
         return processed_boxes
+        
 
     def censor(img_path, out_path=None, visualize=False, parts_to_blur=[]):
         if not out_path and not visualize:

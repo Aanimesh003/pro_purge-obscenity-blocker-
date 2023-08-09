@@ -6,6 +6,7 @@ import pyautogui
 import tkinter as tk
 import imgcompare
 import image_utils
+import subprocess
 from PIL import ImageGrab
 detector
 root = tk.Tk()
@@ -63,7 +64,7 @@ while True:
                     point=l[0]['box'][0],l[0]['box'][1]
                     pyautogui.moveTo(point)
                     pyautogui.leftClick()
-                    pyautogui.hotkey('alt', 'f4')
+                    pyautogui.hotkey('ctrl', 'f4')
                     root.withdraw()  # Hide the root window
 
                     # Create a transparent window to freeze the screen
@@ -76,6 +77,7 @@ while True:
                     # Show the overlay after a short delay
                     root.after(100, show_overlay)
                     root.mainloop()
+                subprocess.run(['python', 'Working Screen Recording.py'])
                 # TO ADD: SEND OBSECNITY ALERT NOTIFICATION
                 # Proper Integration into a Fuction
                 # Launching a Script for Overlay that is a seperate file
