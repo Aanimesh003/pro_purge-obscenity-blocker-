@@ -60,7 +60,7 @@ class DeskApp:
         self.detect_video_button = tk.Button(self.root, text="Detect Video", command=self.detect_video, bg="green", font=("Helvetica", 12))
         self.detect_audio_button = tk.Button(self.root, text="Detect Audio", command=self.detect_audio, bg="green", font=("Helvetica", 12))
         self.detect_text_button = tk.Button(self.root, text="Detect Text", command=self.detect_text, bg="green", font=("Helvetica", 12))
-        self.stop_button = tk.Button(self.root, text="Stop", command=self.stop_processes, bg="gray", font=("Helvetica", 12), state=tk.DISABLED)
+        self.stop_button = tk.Button(self.root, text="Stop", command=self.stop_processes, bg="gray", font=("Helvetica", 12))
 
         self.detect_video_button.pack(pady=10)
         self.detect_audio_button.pack(pady=10)
