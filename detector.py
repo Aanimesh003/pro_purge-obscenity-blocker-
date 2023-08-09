@@ -1,8 +1,9 @@
 import os
+import cv2
 import pydload
+import logging
 import numpy as np
 import onnxruntime
-import cv2
 from detector_utils import preprocess_image
 
 def dummy(x):
@@ -10,8 +11,10 @@ def dummy(x):
 
 class Detector:
     global detection_model,classes
-    detection_model = "C:\Users\ryana\Downloads\detector_v2_base_checkpoint.onnx"
-    classes = "C:\Users\ryana\Downloads\detector_v2_default_classes"
+#    detection_model = "C:\\Users\\ryana\\Downloads\\detector_v2_base_checkpoint.onnx"
+#    classes = "C:\\Users\\ryana\\Downloads\\detector_v2_default_classes"
+    detection_model = onnxruntime.InferenceSession("C:\\Users\\ryana\\Downloads\\detector_v2_default_checkpoint.onnx")
+    classes = [c.strip() for c in open("C:\\Users\\ryana\\Downloads\\detector_v2_default_classes").readlines() if c.strip()]
 
     def detect(img_path, mode="default", min_prob=None):
         if mode == "fast":
@@ -42,6 +45,7 @@ class Detector:
             processed_boxes.append(
                 {"box": [int(c) for c in box], "score": float(score), "label": label}
             )
+        detection_model.end_profiling()
         return processed_boxes
 
     def censor(img_path, out_path=None, visualize=False, parts_to_blur=[]):
@@ -52,7 +56,7 @@ class Detector:
             return
 
         image = cv2.imread(img_path)
-        boxes = detect(img_path)
+        boxes = Detector.detect(img_path)
 
         if parts_to_blur:
             boxes = [i["box"] for i in boxes if i["label"] in parts_to_blur]
