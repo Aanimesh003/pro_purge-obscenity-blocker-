@@ -5,7 +5,7 @@ import threading
 class DeskApp:
     def __init__(self, root):
         self.root = root
-        self.root.title("Python DeskApp")
+        self.root.title("Pro_Purge")
 
         self.login_frame = None  # Initialize login_frame
 
@@ -54,7 +54,7 @@ class DeskApp:
         if self.login_frame:
             self.login_frame.destroy()
 
-        self.title_label = tk.Label(self.root, text="Welcome to DeskApp", font=("Helvetica", 18, "bold"))
+        self.title_label = tk.Label(self.root, text="Pro_Purge", font=("Helvetica", 18, "bold"))
         self.title_label.pack(pady=20)
 
         self.detect_video_button = tk.Button(self.root, text="Detect Video", command=self.detect_video, bg="green", font=("Helvetica", 12))
@@ -115,7 +115,7 @@ class DeskApp:
         self.audio_detecting = False
         self.text_detecting = False
         if self.video_thread:
-            self.video_thread.join()  
+            self.video_thread.join()
             self.detect_video_button.config(state=tk.NORMAL, bg="red")
         if self.audio_thread:
             self.audio_thread.join()  
@@ -130,7 +130,7 @@ class DeskApp:
 
 # Create the main window
 root = tk.Tk()
-root.title("DeskApp Login")
+root.title("Pro_Purge Login")
 
 app = DeskApp(root)
 

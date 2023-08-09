@@ -25,8 +25,8 @@ def show_warning():
     
 
 while True:
-    time.sleep(1)
     try:
+        time.sleep(1)
         img = Image.open(image_path)
         pytesseract.tesseract_cmd = path_to_tesseract
         text = pytesseract.image_to_string(img)

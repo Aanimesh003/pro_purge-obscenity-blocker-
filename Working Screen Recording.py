@@ -66,7 +66,6 @@ while True:
                     pyautogui.moveTo(point)
                     pyautogui.leftClick()
                     pyautogui.hotkey('alt', 'f4')
-                    emailer.sendmail()
                     root.withdraw()  # Hide the root window
                     # Create a transparent window to freeze the screen
                     freeze_screen = tk.Toplevel(root)
@@ -78,6 +77,7 @@ while True:
                     # Show the overlay after a short delay
                     root.after(100, show_overlay)
                     root.mainloop()
+                    emailer.sendmail()
                 subprocess.run(['python', 'Working Screen Recording.py'])
                 # TO ADD: SEND OBSECNITY ALERT NOTIFICATION
                 # Proper Integration into a Fuction
