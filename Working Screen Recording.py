@@ -7,6 +7,7 @@ import tkinter as tk
 import imgcompare
 import image_utils
 import subprocess
+import emailer
 from PIL import ImageGrab
 detector
 root = tk.Tk()
@@ -65,8 +66,8 @@ while True:
                     pyautogui.moveTo(point)
                     pyautogui.leftClick()
                     pyautogui.hotkey('ctrl', 'f4')
+                    emailer.sendmail()
                     root.withdraw()  # Hide the root window
-
                     # Create a transparent window to freeze the screen
                     freeze_screen = tk.Toplevel(root)
                     freeze_screen.attributes('-fullscreen', True)

@@ -18,7 +18,7 @@ def sendmail(
 
     #Load the PNG image file and attach it to the email:
 
-    with open("pic.png", "rb") as f:
+    with open("pic1.png", "rb") as f:
         image_data = f.read()
     image = MIMEImage(image_data)
     image.add_header('Content-Disposition', 'attachment', filename="pic.png")
