@@ -72,10 +72,10 @@ class DeskApp:
         self.text_detecting = True
         self.video_thread = threading.Thread(target=self.run_video_detection)
         self.audio_thread = threading.Thread(target=self.run_audio_detection)
-        self.text_thread = threading.Thread(target=self.run_audio_detection)
+        self.text_thread = threading.Thread(target=self.run_text_detection)
         self.video_thread.start()
         self.audio_thread.start()
-        self.audio_thread.start()
+        self.text_thread.start()
 
     def detect_video(self):
         self.detect_video_button.config(state=tk.DISABLED)
@@ -106,7 +106,7 @@ class DeskApp:
 
     def run_text_detection(self):
         self.detect_text_button.config(bg="green")  
-        while self.recording:
+        while self.text_detecting:
             subprocess.run(['python', 'text_profanity.py'])
             print("Detecting text...")
 
