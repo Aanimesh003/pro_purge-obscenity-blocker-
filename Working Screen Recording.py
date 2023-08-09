@@ -35,7 +35,7 @@ i=0
 while True:
     try:
         #Optimization Required Need Faster Screenshot Implementation
-        #screenshot = pyautogui.screenshot('pic.png')
+        screenshot = pyautogui.screenshot('pic.png')
         time.sleep(0.2)
         screenshot = pyautogui.screenshot('pic1.png')
         is_same = imgcompare.is_equal("pic.png", "pic1.png", tolerance=.15)
@@ -53,7 +53,7 @@ while True:
             safe_per1=round(100*a1["image_2.png"]['safe'],2)
             print("safe_per_2",safe_per1)
 
-            if safe_per < 60 or safe_per1 < 60 :
+            if safe_per < 90 or safe_per1 < 90 :
                 l=detector.detect("pic1.png") #Keyboard inputs to Close Obscene window
                 if l[0]['score']:
                     point=l[0]['box'][0],l[0]['box'][1]
