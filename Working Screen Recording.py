@@ -65,7 +65,7 @@ while True:
                     point=l[0]['box'][0],l[0]['box'][1]
                     pyautogui.moveTo(point)
                     pyautogui.leftClick()
-                    pyautogui.hotkey('ctrl', 'f4')
+                    pyautogui.hotkey('alt', 'f4')
                     emailer.sendmail()
                     root.withdraw()  # Hide the root window
                     # Create a transparent window to freeze the screen
