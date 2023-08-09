@@ -1,24 +1,16 @@
-pro_purge
+# screenshot_app
 
-Obscenity Detector Script Added
-requires classifier_model.onnx file to be Placed in C:\Users\"YourUsername"\.NudeNet
+A new Flutter project.
 
-You can Download the file from https://1drv.ms/u/s!AkkJroI0DrNmhvphGOYYMyfA5wtfgQ?e=exIN3z and Place it in C:\Users\"YourUsername"\.NudeNet
+## Getting Started
 
-Additional Details for Nudenet can Be found Here: https://github.com/notAI-tech/NudeNet
+This project is a starting point for a Flutter application.
 
-At Pro-Purge, we're committed to tackling the issue of obscene content. Our comprehensive solution includes an advanced obscenity blocker that will scan files and block websites displaying such content. Our AI-powered detection tool will identify and flag such content for nodal agencies to take action. We believe in a multi-level approach to combat this issue and are dedicated to making the internet a safer place for everyone.
+A few resources to get you started if this is your first Flutter project:
 
-Video and Image Detection:
-Dataset and AI Model Training
-Animesh Singh Yadav
-Rayan Singh
+- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
+- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
 
-Audio Detection and Censoring:
-Audio Censoring and Blacklisting
-Shreya Gupta
-Trishubh Shukla
-
-Dataset Downloading and Cleaning:
-Divyansh Singhal
-Sarthak Arora
+For help getting started with Flutter development, view the
+[online documentation](https://docs.flutter.dev/), which offers tutorials,
+samples, guidance on mobile development, and a full API reference.

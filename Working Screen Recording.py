@@ -1,11 +1,13 @@
 import time
 import numpy as np
 from classifier import Classifier
+from nudenet import NudeDetector
 import pyautogui
 import tkinter as tk
 import imgcompare
-
-
+import image_utils
+from PIL import ImageGrab
+detector = NudeDetector()
 def close_overlay(overlay, freeze_screen):
     overlay.grab_release()
     overlay.destroy()
@@ -36,16 +38,28 @@ while True:
         screenshot = pyautogui.screenshot('pic.png')
         time.sleep(0.2)
         screenshot = pyautogui.screenshot('pic1.png')
-        is_same = imgcompare.is_equal("pic.png", "pic1.png", tolerance=1.5)
+        is_same = imgcompare.is_equal("pic.png", "pic1.png", tolerance=.15)
         i=i+1
     #    print("image taken")
-        if (is_same==False or i==10):
+        if True:#(is_same==False or i==10):
             i=0
-            a = Classifier.classify("pic1.png")
-            safe_per=round(100*a["pic1.png"]['safe'],2)
-        
-            if safe_per < 40 :
-                pyautogui.hotkey('alt', 'f4') #Keyboard inputs to Close Obscene window
+            image_utils.splitimage("pic1.png")
+
+            a = Classifier.classify("image_1.png")
+            safe_per=round(100*a["image_1.png"]['safe'],2)
+            print("safe_per_1",safe_per)
+
+            a1 = Classifier.classify("image_2.png")
+            safe_per1=round(100*a1["image_2.png"]['safe'],2)
+            print("safe_per_2",safe_per1)
+
+            if safe_per < 90 or safe_per1 < 90 :
+                l=detector.detect("pic1.png") #Keyboard inputs to Close Obscene window
+                if l[0]['score']:
+                    point=l[0]['box'][0],l[0]['box'][1]
+                    pyautogui.moveTo(point)
+                    pyautogui.leftClick()
+                    pyautogui.hotkey('alt', 'f4')
                 # TO ADD: SEND OBSECNITY ALERT NOTIFICATION
                 # Proper Integration into a Fuction
                 # Launching a Script for Overlay that is a seperate file
@@ -63,8 +77,5 @@ while True:
                 # Show the overlay after a short delay
                 root.after(100, show_overlay)
                 root.mainloop()
-
-                    
-            print("safe",safe_per,"%")
     except:
         print("Unable to take Sreenshot Device may be Asleep")
